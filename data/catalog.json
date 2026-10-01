@@ -1,0 +1,25 @@
+{
+  "schemaVersion": 1,
+  "races": [
+    {
+      "year": 2024,
+      "round": 1,
+      "name": "Bahrain Grand Prix",
+      "circuit": "Bahrain International Circuit",
+      "country": "Bahrain",
+      "date": "2024-03-02",
+      "laps": 57,
+      "sessionKey": 9472
+    },
+    {
+      "year": 2024,
+      "round": 2,
+      "name": "Saudi Arabian Grand Prix",
+      "circuit": "Jeddah Corniche Circuit",
+      "country": "Saudi Arabia",
+      "date": "2024-03-09",
+      "laps": 50,
+      "sessionKey": 9480
+    }
+  ]
+}

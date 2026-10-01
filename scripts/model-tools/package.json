@@ -1,0 +1,11 @@
+{
+  "name": "f1-data-lab-model-preparation",
+  "private": true,
+  "type": "module",
+  "description": "Optional, author-only tools; participants use the committed GLB.",
+  "dependencies": {
+    "gltf-validator": "2.0.0-dev.3.10",
+    "meshoptimizer": "1.3.0",
+    "sharp": "0.35.5"
+  }
+}

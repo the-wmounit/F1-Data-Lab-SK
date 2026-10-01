@@ -1,0 +1,342 @@
+{
+  "schemaVersion": 1,
+  "generatedAt": "2026-10-01T12:19:54.629Z",
+  "sources": [
+    {
+      "url": "https://api.jolpi.ca/ergast/f1/2024/1/laps.json?limit=100&offset=0",
+      "fetchedAt": "2026-10-01T12:15:16.308Z",
+      "sha256": "d3c13e39e9ca06d3b9bc60e6acdb9deb56cab48e09880d7a8109ae792c6c8058",
+      "bytes": 6403
+    },
+    {
+      "url": "https://api.jolpi.ca/ergast/f1/2024/1/laps.json?limit=100&offset=100",
+      "fetchedAt": "2026-10-01T12:15:16.945Z",
+      "sha256": "bd63303255601c087cc3dddf3c13444723f1e5f7fcb940f3f72a1905a05cfffd",
+      "bytes": 6406
+    },
+    {
+      "url": "https://api.jolpi.ca/ergast/f1/2024/1/laps.json?limit=100&offset=1000",
+      "fetchedAt": "2026-10-01T12:15:20.270Z",
+      "sha256": "3e51e22b205ab741965978e0e1f503d18df3e21a580e243ecacffe722cc35caa",
+      "bytes": 6411
+    },
+    {
+      "url": "https://api.jolpi.ca/ergast/f1/2024/1/laps.json?limit=100&offset=1100",
+      "fetchedAt": "2026-10-01T12:15:20.624Z",
+      "sha256": "0a9a2a95cec8bf1bcaf0705e7b69fd7ca84775c78bdb9322af6a47024ad828bf",
+      "bytes": 2291
+    },
+    {
+      "url": "https://api.jolpi.ca/ergast/f1/2024/1/laps.json?limit=100&offset=200",
+      "fetchedAt": "2026-10-01T12:15:17.296Z",
+      "sha256": "af03a3866da5aa069f0634d083350bfea483a24eca832a4deedfa15c1c310bd6",
+      "bytes": 6410
+    },
+    {
+      "url": "https://api.jolpi.ca/ergast/f1/2024/1/laps.json?limit=100&offset=300",
+      "fetchedAt": "2026-10-01T12:15:17.659Z",
+      "sha256": "92bc1f5590cda0f9f8ded6ee1bd7310442ba36a1f55952663feabb0d94c9e710",
+      "bytes": 6410
+    },
+    {
+      "url": "https://api.jolpi.ca/ergast/f1/2024/1/laps.json?limit=100&offset=400",
+      "fetchedAt": "2026-10-01T12:15:17.994Z",
+      "sha256": "ea05439e23eeff23a5423c8eb3e83f4b088dd24684c31caea72d5d20609c9a38",
+      "bytes": 6410
+    },
+    {
+      "url": "https://api.jolpi.ca/ergast/f1/2024/1/laps.json?limit=100&offset=500",
+      "fetchedAt": "2026-10-01T12:15:18.401Z",
+      "sha256": "195a84d7b0976dc71351c90b5cda180cc7903188f056a2b03e47fa19d3e96a06",
+      "bytes": 6410
+    },
+    {
+      "url": "https://api.jolpi.ca/ergast/f1/2024/1/laps.json?limit=100&offset=600",
+      "fetchedAt": "2026-10-01T12:15:18.884Z",
+      "sha256": "76c137c92df8670f2ebc38a1925777e1faf59fb51671cdbd1a4ad3424505a0f6",
+      "bytes": 6410
+    },
+    {
+      "url": "https://api.jolpi.ca/ergast/f1/2024/1/laps.json?limit=100&offset=700",
+      "fetchedAt": "2026-10-01T12:15:19.190Z",
+      "sha256": "e0823e166ee1a8ba1dbef1a4da7d2f2f022b6aa3d59127b9fe70906d84073876",
+      "bytes": 6410
+    },
+    {
+      "url": "https://api.jolpi.ca/ergast/f1/2024/1/laps.json?limit=100&offset=800",
+      "fetchedAt": "2026-10-01T12:15:19.582Z",
+      "sha256": "78e7581a398bac0ebd4273534bddba80373e7f8f7bc780c3b86c10df56fcfbe8",
+      "bytes": 6410
+    },
+    {
+      "url": "https://api.jolpi.ca/ergast/f1/2024/1/laps.json?limit=100&offset=900",
+      "fetchedAt": "2026-10-01T12:15:19.904Z",
+      "sha256": "4b11ca724aa86815ef414be2c7a8b817bb8c2b615eb8bdc689d534b5a971ddfd",
+      "bytes": 6410
+    },
+    {
+      "url": "https://api.jolpi.ca/ergast/f1/2024/1/pitstops.json?limit=100&offset=0",
+      "fetchedAt": "2026-10-01T12:15:20.931Z",
+      "sha256": "bc4ab1dafa5c6c50b98e250ea6c7ec60678b53470f77c32828b12cc5f5aa0412",
+      "bytes": 4177
+    },
+    {
+      "url": "https://api.jolpi.ca/ergast/f1/2024/1/results.json?limit=100&offset=0",
+      "fetchedAt": "2026-10-01T12:15:14.785Z",
+      "sha256": "5d51a1458a0da85e60016b937f6751f8671b42ef84044d1e41680a2c6522db02",
+      "bytes": 12927
+    },
+    {
+      "url": "https://api.jolpi.ca/ergast/f1/2024/2/laps.json?limit=100&offset=0",
+      "fetchedAt": "2026-10-01T12:19:27.950Z",
+      "sha256": "a3bb500a7b0fc26e97827a5d6731143dda995e673bef79722fa01e5e198d541c",
+      "bytes": 6452
+    },
+    {
+      "url": "https://api.jolpi.ca/ergast/f1/2024/2/laps.json?limit=100&offset=100",
+      "fetchedAt": "2026-10-01T12:19:28.254Z",
+      "sha256": "8d3cfe7e579c6fed394f7ce67b3053ac0691f7dfcf90f2f1e878c1485532c8eb",
+      "bytes": 6461
+    },
+    {
+      "url": "https://api.jolpi.ca/ergast/f1/2024/2/laps.json?limit=100&offset=200",
+      "fetchedAt": "2026-10-01T12:19:28.651Z",
+      "sha256": "ca66f689b83cf787f25c72da6be805645d309d346217ed875c3009453b34399e",
+      "bytes": 6493
+    },
+    {
+      "url": "https://api.jolpi.ca/ergast/f1/2024/2/laps.json?limit=100&offset=300",
+      "fetchedAt": "2026-10-01T12:19:28.983Z",
+      "sha256": "2fa6c3a5f66781863ac2510f063942d2a711898a88b05d004f8dfe09efb435df",
+      "bytes": 6466
+    },
+    {
+      "url": "https://api.jolpi.ca/ergast/f1/2024/2/laps.json?limit=100&offset=400",
+      "fetchedAt": "2026-10-01T12:19:29.341Z",
+      "sha256": "898e18b7d1d991ea8856963085aed37c3b5636d8fc023bc779636c628cd2725a",
+      "bytes": 6491
+    },
+    {
+      "url": "https://api.jolpi.ca/ergast/f1/2024/2/laps.json?limit=100&offset=500",
+      "fetchedAt": "2026-10-01T12:19:29.855Z",
+      "sha256": "c946c4080c67d777d5d8d33f6388dc2a6dff7e2e00f26d2079160aba31d5d7b9",
+      "bytes": 6470
+    },
+    {
+      "url": "https://api.jolpi.ca/ergast/f1/2024/2/laps.json?limit=100&offset=600",
+      "fetchedAt": "2026-10-01T12:19:30.182Z",
+      "sha256": "89da13aac12a688843f26bf0b57069b86be30d84a8da02084682d6fa162b593c",
+      "bytes": 6458
+    },
+    {
+      "url": "https://api.jolpi.ca/ergast/f1/2024/2/laps.json?limit=100&offset=700",
+      "fetchedAt": "2026-10-01T12:19:30.525Z",
+      "sha256": "8887891a6417ef23e38ca1689ed2c18763aa8df6f984ef497211d41e10115ae7",
+      "bytes": 6505
+    },
+    {
+      "url": "https://api.jolpi.ca/ergast/f1/2024/2/laps.json?limit=100&offset=800",
+      "fetchedAt": "2026-10-01T12:19:30.896Z",
+      "sha256": "06e31e80bdc24f14b8b65bff22f219fb99bb6b09e0628dfde274c24f454a1fc5",
+      "bytes": 6467
+    },
+    {
+      "url": "https://api.jolpi.ca/ergast/f1/2024/2/pitstops.json?limit=100&offset=0",
+      "fetchedAt": "2026-10-01T12:19:31.164Z",
+      "sha256": "0765ce1aa3afb0b58b87cb04f47f5fba38b25097707be502e5e4a8e47bc01d47",
+      "bytes": 2176
+    },
+    {
+      "url": "https://api.jolpi.ca/ergast/f1/2024/2/results.json?limit=100&offset=0",
+      "fetchedAt": "2026-10-01T12:19:27.339Z",
+      "sha256": "35248597f4cc0cd330d86a2dd05fdbccd8ebc3966149a1adcae07f9de6876839",
+      "bytes": 12634
+    },
+    {
+      "url": "https://api.jolpi.ca/ergast/f1/2024/results.json?limit=100&offset=0",
+      "fetchedAt": "2026-10-01T12:19:52.127Z",
+      "sha256": "f0135d5558a4df808a76368b4b4ac00518898c431bc17736203352ac4ef111e2",
+      "bytes": 63385
+    },
+    {
+      "url": "https://api.jolpi.ca/ergast/f1/2024/results.json?limit=100&offset=100",
+      "fetchedAt": "2026-10-01T12:19:52.426Z",
+      "sha256": "aa881ef66c695389799424b0448d7c3e7de4ecfaa8bec51a8b81151fc7fbd008",
+      "bytes": 63026
+    },
+    {
+      "url": "https://api.jolpi.ca/ergast/f1/2024/results.json?limit=100&offset=200",
+      "fetchedAt": "2026-10-01T12:19:52.778Z",
+      "sha256": "56b8fd3249093027d90b24c477175a09f7f240ed6fbbf5b17049366e5c7028a0",
+      "bytes": 64398
+    },
+    {
+      "url": "https://api.jolpi.ca/ergast/f1/2024/results.json?limit=100&offset=300",
+      "fetchedAt": "2026-10-01T12:19:53.136Z",
+      "sha256": "7aa3720d9621324a9dc4db99bcf2f85da73c7bbd2495a226dfe58ed7487df552",
+      "bytes": 64140
+    },
+    {
+      "url": "https://api.jolpi.ca/ergast/f1/2024/results.json?limit=100&offset=400",
+      "fetchedAt": "2026-10-01T12:19:53.493Z",
+      "sha256": "fc8799d8bce062b1136a4b08b2c05ad376ee372218674cf0576d389c5013ad07",
+      "bytes": 49572
+    },
+    {
+      "url": "https://api.jolpi.ca/ergast/f1/2024/sprint.json?limit=100&offset=0",
+      "fetchedAt": "2026-10-01T12:19:54.187Z",
+      "sha256": "02e4893c6224be890bc4578a98dc9fc97b07447769b3c8c350c56f94078e5745",
+      "bytes": 59164
+    },
+    {
+      "url": "https://api.jolpi.ca/ergast/f1/2024/sprint.json?limit=100&offset=100",
+      "fetchedAt": "2026-10-01T12:19:54.629Z",
+      "sha256": "9f36cfd7c54bf7b4ab818390106021c43e32282a98c24ae5b258a920b3088496",
+      "bytes": 12038
+    },
+    {
+      "url": "https://api.openf1.org/v1/drivers?session_key=9472",
+      "fetchedAt": "2026-10-01T12:15:16.251Z",
+      "sha256": "41e18f46976d182759e7c10c3bfc23f09acf850340f10990a46b454f4c45bba8",
+      "bytes": 8317
+    },
+    {
+      "url": "https://api.openf1.org/v1/drivers?session_key=9480",
+      "fetchedAt": "2026-10-01T12:19:27.480Z",
+      "sha256": "c825d3d9f7dd020100dc6817296da3324785b721f4276823186964d170b67e49",
+      "bytes": 8177
+    },
+    {
+      "url": "https://api.openf1.org/v1/laps?session_key=9472",
+      "fetchedAt": "2026-10-01T12:15:21.222Z",
+      "sha256": "2cc77172d82e22620a2a104f3aa9be3bf066c225a19125bc86b53cde6f672b61",
+      "bytes": 563928
+    },
+    {
+      "url": "https://api.openf1.org/v1/laps?session_key=9480",
+      "fetchedAt": "2026-10-01T12:19:31.341Z",
+      "sha256": "c4ad42bb5da959e0cc924c3242bed51d23beb2aae4c96beb68150363fdbda8cf",
+      "bytes": 436780
+    },
+    {
+      "url": "https://api.openf1.org/v1/location?session_key=9472&date%3E=2024-03-02T14%3A59%3A59.999Z&date%3C=2024-03-02T15%3A10%3A00.000Z",
+      "fetchedAt": "2026-10-01T12:16:57.359Z",
+      "sha256": "7df169d824bcba4302e59c2a598b840f90eb1203d8efbc5bcde6e57ae4b13230",
+      "bytes": 5987068
+    },
+    {
+      "url": "https://api.openf1.org/v1/location?session_key=9472&date%3E=2024-03-02T15%3A09%3A59.999Z&date%3C=2024-03-02T15%3A20%3A00.000Z",
+      "fetchedAt": "2026-10-01T12:16:59.214Z",
+      "sha256": "68d0410b3336e7ccdaa78b3fbab9a915ce2a209acdc46b624e8e21775fd2f636",
+      "bytes": 5858772
+    },
+    {
+      "url": "https://api.openf1.org/v1/location?session_key=9472&date%3E=2024-03-02T15%3A19%3A59.999Z&date%3C=2024-03-02T15%3A30%3A00.000Z",
+      "fetchedAt": "2026-10-01T12:17:01.594Z",
+      "sha256": "c0ba91fe89ba87aaa2fc219c5e0248424fdfcbe06378d6b43d8b62420cb2ccd2",
+      "bytes": 5915212
+    },
+    {
+      "url": "https://api.openf1.org/v1/location?session_key=9472&date%3E=2024-03-02T15%3A29%3A59.999Z&date%3C=2024-03-02T15%3A40%3A00.000Z",
+      "fetchedAt": "2026-10-01T12:17:03.838Z",
+      "sha256": "428ac9372b8bbb751d85bc2b896d54f41ba593af47c6948d0cbc483537a83c37",
+      "bytes": 5853858
+    },
+    {
+      "url": "https://api.openf1.org/v1/location?session_key=9472&date%3E=2024-03-02T15%3A39%3A59.999Z&date%3C=2024-03-02T15%3A50%3A00.000Z",
+      "fetchedAt": "2026-10-01T12:17:05.623Z",
+      "sha256": "a925a74fb4fbbc4544bab19275653a3c6ecee973081acf7e850cfff0b96b5105",
+      "bytes": 5932860
+    },
+    {
+      "url": "https://api.openf1.org/v1/location?session_key=9472&date%3E=2024-03-02T15%3A49%3A59.999Z&date%3C=2024-03-02T16%3A00%3A00.000Z",
+      "fetchedAt": "2026-10-01T12:17:08.122Z",
+      "sha256": "e3fbe90d9191740872381aeeb997761759250ac636af48c78c6a1e7ef193e9af",
+      "bytes": 5849152
+    },
+    {
+      "url": "https://api.openf1.org/v1/location?session_key=9472&date%3E=2024-03-02T15%3A59%3A59.999Z&date%3C=2024-03-02T16%3A10%3A00.000Z",
+      "fetchedAt": "2026-10-01T12:17:09.880Z",
+      "sha256": "567a0773dd0eff26300ff18b2583d2b0bcfae40d13a5121cf27b9262dbb98a0f",
+      "bytes": 5843689
+    },
+    {
+      "url": "https://api.openf1.org/v1/location?session_key=9472&date%3E=2024-03-02T16%3A09%3A59.999Z&date%3C=2024-03-02T16%3A20%3A00.000Z",
+      "fetchedAt": "2026-10-01T12:17:12.904Z",
+      "sha256": "09c2d55dda8e572d3a0df57540c9528206f69d01abcf4c7538cd786634c9f2ad",
+      "bytes": 5973340
+    },
+    {
+      "url": "https://api.openf1.org/v1/location?session_key=9472&date%3E=2024-03-02T16%3A19%3A59.999Z&date%3C=2024-03-02T16%3A30%3A00.000Z",
+      "fetchedAt": "2026-10-01T12:17:14.923Z",
+      "sha256": "7b623b598f779ba181401e3ae429591c90da267a35b27487ea63323cb806809c",
+      "bytes": 5828758
+    },
+    {
+      "url": "https://api.openf1.org/v1/location?session_key=9472&date%3E=2024-03-02T16%3A29%3A59.999Z&date%3C=2024-03-02T16%3A37%3A00.763Z",
+      "fetchedAt": "2026-10-01T12:19:02.067Z",
+      "sha256": "1b7c0a08230ceef01b43cf24e01e537f4fdf0df8596409c2b2e20ea306520384",
+      "bytes": 4150892
+    },
+    {
+      "url": "https://api.openf1.org/v1/location?session_key=9480&date%3E=2024-03-09T16%3A59%3A59.999Z&date%3C=2024-03-09T17%3A10%3A00.000Z",
+      "fetchedAt": "2026-10-01T12:19:34.830Z",
+      "sha256": "a26071e5f6a183a46ed92767d85ef27056382917cad73729017eda9cb5f119bd",
+      "bytes": 5935829
+    },
+    {
+      "url": "https://api.openf1.org/v1/location?session_key=9480&date%3E=2024-03-09T17%3A09%3A59.999Z&date%3C=2024-03-09T17%3A20%3A00.000Z",
+      "fetchedAt": "2026-10-01T12:19:37.657Z",
+      "sha256": "b98fef656f943e3d666895a5a94a46b9498682b2fc7027e1404e955ca47ab342",
+      "bytes": 6463434
+    },
+    {
+      "url": "https://api.openf1.org/v1/location?session_key=9480&date%3E=2024-03-09T17%3A19%3A59.999Z&date%3C=2024-03-09T17%3A30%3A00.000Z",
+      "fetchedAt": "2026-10-01T12:19:39.774Z",
+      "sha256": "bc75326a8dfeae371960095a61f78205ef465099324e537d67b9ac6425adb889",
+      "bytes": 6043193
+    },
+    {
+      "url": "https://api.openf1.org/v1/location?session_key=9480&date%3E=2024-03-09T17%3A29%3A59.999Z&date%3C=2024-03-09T17%3A40%3A00.000Z",
+      "fetchedAt": "2026-10-01T12:19:41.853Z",
+      "sha256": "dfd80fb71285bc20a4e57daa0429e596107cc4d0bf2467c90266b888470eb596",
+      "bytes": 6070238
+    },
+    {
+      "url": "https://api.openf1.org/v1/location?session_key=9480&date%3E=2024-03-09T17%3A39%3A59.999Z&date%3C=2024-03-09T17%3A50%3A00.000Z",
+      "fetchedAt": "2026-10-01T12:19:43.761Z",
+      "sha256": "6f5a9de5c66d9be39f7b622bc9dd673f8be89004348fcf89553b2bf2e603684c",
+      "bytes": 5989632
+    },
+    {
+      "url": "https://api.openf1.org/v1/location?session_key=9480&date%3E=2024-03-09T17%3A49%3A59.999Z&date%3C=2024-03-09T18%3A00%3A00.000Z",
+      "fetchedAt": "2026-10-01T12:19:45.933Z",
+      "sha256": "1fff355272efd1dcc2befe95e4c00016c3710a7f757da16a5af4ce1c14adb2cd",
+      "bytes": 5905716
+    },
+    {
+      "url": "https://api.openf1.org/v1/location?session_key=9480&date%3E=2024-03-09T17%3A59%3A59.999Z&date%3C=2024-03-09T18%3A10%3A00.000Z",
+      "fetchedAt": "2026-10-01T12:19:47.750Z",
+      "sha256": "0adf07b763665ef5b0597c064d44139c5e316c83c2fb3814b9307442726ff1fd",
+      "bytes": 5995368
+    },
+    {
+      "url": "https://api.openf1.org/v1/location?session_key=9480&date%3E=2024-03-09T18%3A09%3A59.999Z&date%3C=2024-03-09T18%3A20%3A00.000Z",
+      "fetchedAt": "2026-10-01T12:19:49.994Z",
+      "sha256": "aad3682d051c9a5550eb2aadf15dcb2e2c4fd8148f7b56242a287c2feafa84a8",
+      "bytes": 5941658
+    },
+    {
+      "url": "https://api.openf1.org/v1/location?session_key=9480&date%3E=2024-03-09T18%3A19%3A59.999Z&date%3C=2024-03-09T18%3A26%3A11.134Z",
+      "fetchedAt": "2026-10-01T12:19:51.529Z",
+      "sha256": "116f64ab788e0e1151a26cd863defc2ffa415260acd41a365e9a47472e0ec1ad",
+      "bytes": 3698453
+    },
+    {
+      "url": "https://api.openf1.org/v1/sessions?year=2024&session_name=Race",
+      "fetchedAt": "2026-10-01T12:15:14.348Z",
+      "sha256": "0802447b8798abea1959794a9e215b7c05bf033913ea63f5380c154d8ed285b5",
+      "bytes": 8583
+    }
+  ]
+}

@@ -1,0 +1,149 @@
+{
+  "schemaVersion": 1,
+  "file": "f1-2026.glb",
+  "sha256": "be396e3b4be53b2f57b2136483ff41ed671bf237ed225c5edf3182ca1e0c6bdf",
+  "bytes": 1246080,
+  "source": {
+    "filename": "F1+2026.obj",
+    "sha256": "b1942ca0812f927ee4a35479089dd5b2af3503be684645a146d9e4da21450ae8",
+    "bytes": 15420263,
+    "modelYear": 2026,
+    "suppliedBy": "repository owner",
+    "declaredPlatform": "CGTrader",
+    "declaredSourceUrl": "https://www.cgtrader.com/search?free=1&keywords=F1",
+    "exactListingUrl": null,
+    "provenanceNote": "Repository owner identified CGTrader free-model search as the source; the exact listing and its license were not supplied.",
+    "texturesArchive": "textures.zip",
+    "texturesArchiveSha256": "f02f3f7933463f976a529b1e6c6bd4b995517d6fb0632d472e4d16b222369aff"
+  },
+  "license": "unknown",
+  "redistributionStatus": "The source author and redistribution rights were not supplied with the files. Verify the original model license before publishing this model.",
+  "geometry": {
+    "triangles": 36304,
+    "sourceTriangles": 205876,
+    "vertices": 26000,
+    "length": 5.6,
+    "width": 2.042898150902827,
+    "height": 1.236358642578125,
+    "upAxis": "Y",
+    "forwardAxis": "+Z",
+    "bottomY": 0,
+    "sourceBounds": {
+      "min": [
+        -5.838212013244629,
+        0.0010550000006332994,
+        -2.0485010147094727
+      ],
+      "max": [
+        5.392505168914795,
+        2.497765064239502,
+        2.0485010147094727
+      ]
+    },
+    "sourceScale": 0.49863244788105693,
+    "finalGroundingOffset": 0.008367551490664482,
+    "primitives": [
+      {
+        "name": "Car_Livery",
+        "material": "Livery",
+        "sourceTriangles": 134420,
+        "triangles": 23523,
+        "vertices": 18134,
+        "relativeSimplificationError": 0.00020217904238961637
+      },
+      {
+        "name": "Car_RearLight",
+        "material": "RearLight",
+        "sourceTriangles": 3872,
+        "triangles": 677,
+        "vertices": 1010,
+        "relativeSimplificationError": 0.000923115701880306
+      },
+      {
+        "name": "Wheels_Wheels",
+        "material": "Wheels",
+        "sourceTriangles": 4096,
+        "triangles": 995,
+        "vertices": 780,
+        "relativeSimplificationError": 0.0038924268446862698
+      },
+      {
+        "name": "WheelCovers_WheelCovers",
+        "material": "WheelCovers",
+        "sourceTriangles": 63488,
+        "triangles": 11109,
+        "vertices": 6076,
+        "relativeSimplificationError": 0.00014310682308860123
+      }
+    ]
+  },
+  "bodyMaterials": [
+    "Livery"
+  ],
+  "textures": [
+    {
+      "name": "Livery.png",
+      "sha256": "2c79767255125f83983d4bd8f5a55c5c752f431f3a36a862292748a9a3148d8a",
+      "originalDimensions": [
+        4000,
+        4000
+      ],
+      "embeddedBytes": 145996
+    },
+    {
+      "name": "TyreSoft.png",
+      "sha256": "d1cc2c1ce8a7dd97f693ceb695d05c5452e5570d5022a6c809c1efd2abfc7e19",
+      "originalDimensions": [
+        1024,
+        1024
+      ],
+      "embeddedBytes": 34227
+    },
+    {
+      "name": "WheelCovers.png",
+      "sha256": "8463816e8b9d2e33370ff090997f6086b19e1f547141452a9543b3daaabcc2f8",
+      "originalDimensions": [
+        1000,
+        1000
+      ],
+      "embeddedBytes": 11329
+    }
+  ],
+  "transformations": [
+    "Source -X nose rotated +90 degrees around Y; origin centered lengthwise with bottom at Y=0.",
+    "Length normalized to 5.6 scene units; this is display scaling, not a measured physical dimension.",
+    "Vertices welded across matching position/normal/UV; primitives simplified independently with UV and normal weights.",
+    "Source textures resized to at most 1024px and embedded; UV V changed to 1-V to preserve OBJ image orientation."
+  ],
+  "notes": [
+    "This is the supplied F1 2026 concept mesh, used as a generic replay illustration for all drivers. It is not a verified 2024 team car.",
+    "The native blue FIA/F1 livery is retained. Team tinting may remove the Livery texture at runtime; original source files remain intact.",
+    "No Draco or meshopt runtime decoder is needed. Geometry and PNG textures are embedded in the GLB."
+  ],
+  "preparedWith": {
+    "three": "0.180.0",
+    "meshoptimizer": "1.3.0",
+    "sharp": "0.35.5",
+    "gltfValidator": "2.0.0-dev.3.10"
+  },
+  "validation": {
+    "validator": "Khronos glTF Validator",
+    "errors": 0,
+    "warnings": 0,
+    "infos": [
+      {
+        "code": "UNUSED_OBJECT",
+        "message": "This object may be unused.",
+        "severity": 2,
+        "pointer": "/meshes/1/primitives/0/attributes/TEXCOORD_0"
+      },
+      {
+        "code": "IMAGE_NPOT_DIMENSIONS",
+        "message": "Image has non-power-of-two dimensions: 1000x1000.",
+        "severity": 2,
+        "pointer": "/images/2"
+      }
+    ],
+    "sourceIntegrityVerified": true
+  }
+}

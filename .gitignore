@@ -1,0 +1,20 @@
+**/bin/
+**/obj/
+node_modules/
+.cache/
+artifacts/
+*.sqlite
+*.sqlite-shm
+*.sqlite-wal
+data/raw/
+playwright-report/
+test-results/
+# Originaux 3D de travail, conservés localement. Le GLB optimisé est dans wwwroot/models/.
+/f1_2022_for_livery_design.rar
+/f1_2022_textured_studio.blend
+/RED+BULL+2022+F1+CAR.blend
+/RED+BULL+2022+F1+CAR.fbx
+/TEXTURES.rar
+/F1+2026.obj
+/F1+2026.zip
+/textures.zip
