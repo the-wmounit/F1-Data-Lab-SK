@@ -1,0 +1,12 @@
+{
+  "subsetFile": "location-bahrain.json",
+  "subsetRecords": 400,
+  "subsetSha256": "d5d0263fba11b294dd44fcb9180eaed230ab90e7156b923b49028e0c7299f4a9",
+  "selection": "First 400 records of the original response, unchanged",
+  "source": {
+    "url": "https://api.openf1.org/v1/location?session_key=9472&date%3E=2024-03-02T14%3A59%3A59.999Z&date%3C=2024-03-02T15%3A10%3A00.000Z",
+    "fetchedAt": "2026-10-01T12:16:57.359Z",
+    "sha256": "7df169d824bcba4302e59c2a598b840f90eb1203d8efbc5bcde6e57ae4b13230",
+    "bytes": 5987068
+  }
+}

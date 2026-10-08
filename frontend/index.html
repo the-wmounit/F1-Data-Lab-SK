@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#131512" />
+    <title>F1 Data Lab · Replay</title>
+  </head>
+  <body>
+    <a class="skip-link" href="#main">Aller au contenu</a>
+    <header class="masthead">
+      <a class="wordmark" href="/reference/" aria-label="F1 Data Lab, accueil"><span class="mark" aria-hidden="true">F1</span> DATA LAB<span class="edition">2024</span></a>
+      <nav aria-label="Vues de l’atelier">
+        <button data-view="replay" aria-current="page">Replay 3D</button>
+        <button data-view="championship">Championnat</button>
+        <button data-view="strategy">Stratégie</button>
+      </nav>
+      <a class="starter-link" href="/">Voir le point de départ ↗</a>
+    </header>
+    <main id="main">
+      <div class="race-heading">
+        <div><p class="context">Saison 2024 / archive de course</p><h1 id="race-name">Chargement des courses…</h1></div>
+        <label class="race-choice">Grand Prix<select id="race-select" aria-label="Choisir le Grand Prix" disabled></select></label>
+      </div>
+      <div id="message" class="message" role="status" hidden></div>
+      <section id="view-replay" class="view" aria-label="Replay de la course">
+        <div class="replay-layout">
+          <div class="track-panel">
+            <div class="track-toolbar"><span id="track-title">Tracé de la course</span><div class="camera-controls" role="group" aria-label="Caméra"><button id="camera-orbit" aria-pressed="true">Orbitale</button><button id="camera-follow" aria-pressed="false">Suivi</button><button id="camera-onboard" aria-pressed="false">Embarquée</button><button id="camera-reset" aria-label="Recentrer la caméra">Recentrer ↺</button></div></div>
+            <div id="track" tabindex="0" role="img" aria-label="Circuit 3D issu de la télémétrie ; faire glisser pour tourner, défiler pour zoomer">
+              <p id="track-loading" class="track-loading">Lecture de la télémétrie…</p>
+              <div class="track-caption"><span id="circuit-name"></span><span>Tracé OpenF1 · piste illustrée</span><span id="model-caption">Chargement de la monoplace…</span></div>
+              <div class="track-lap"><span>Tour de référence terminé</span><strong id="current-lap">0 <small>/ —</small></strong></div>
+            </div>
+            <div class="transport">
+              <div class="transport-top"><button id="play" class="play-control" disabled><span aria-hidden="true">▶</span> Lire la course</button><output id="elapsed">00:00</output><label class="speed-label">Vitesse<select id="speed"><option value="1">×1</option><option value="10">×10</option><option value="30" selected>×30</option><option value="60">×60</option><option value="120">×120</option></select></label><span id="duration">/ —</span></div>
+              <input id="timeline" type="range" min="0" max="1" step="1" value="0" aria-label="Position dans la course" disabled />
+              <div class="timeline-labels"><span>Départ</span><span id="race-date"></span><span>Arrivée</span></div>
+            </div>
+          </div>
+          <aside class="timing-panel" aria-label="Classement au dernier tour terminé"><div class="timing-title"><h2>Sur la piste</h2><span id="timing-count">— pilotes</span></div><p class="timing-note">Positions par numéro de tour, au passage sur la ligne. Sélectionnez un pilote pour le suivre.</p><div id="driver-list" class="driver-list"></div><p id="telemetry-note" class="telemetry-note">Télémétrie en cours de chargement.</p></aside>
+        </div>
+        <div class="data-strip"><div><span>Points sources</span><strong id="raw-count">—</strong></div><div><span>Points à 1 Hz</span><strong id="sample-count">—</strong></div><div><span>Trous détectés &gt; 5 s</span><strong id="gap-count">—</strong></div><p>La course dans les données.<br /><span>Les voitures disparaissent pendant les trous de télémétrie.</span></p></div>
+      </section>
+      <section id="view-championship" class="view" aria-label="Simulation du championnat" hidden>
+        <div class="section-intro"><h2>Et si les points changeaient ?</h2><p>24 Grands Prix. Un autre barème. Regardez le classement se recomposer.</p></div>
+        <div class="scoring-controls"><label>Barème<select id="scoring"><option value="2024">2024 · avec meilleur tour</option><option value="2010">2010 · sans meilleur tour</option><option value="custom">Personnalisé</option></select></label><label id="custom-label" hidden>Points par position<input id="custom-points" value="25,18,15,12,10,8,6,4,2,1" aria-describedby="scoring-note" /></label><button id="apply-scoring" hidden>Appliquer</button><button id="champ-play">▶ Animer la saison</button></div>
+        <p id="scoring-note" class="chart-note">Les points des sprints sont conservés. Le bonus du meilleur tour s’applique uniquement au barème 2024.</p>
+        <div class="champ-heading"><h3 id="champ-race">Chargement…</h3><output id="champ-round">— / 24</output></div><input id="champ-timeline" type="range" min="0" max="24" value="24" aria-label="Manche du championnat" />
+        <div id="bars" class="bars" role="img" aria-label="Classement du championnat par points"></div><p id="champ-error" role="alert" class="message" hidden></p>
+      </section>
+      <section id="view-strategy" class="view" aria-label="Positions et arrêts aux stands" hidden>
+        <div class="section-intro"><h2>Chaque position raconte une course.</h2><p>Positions à la fin de chaque tour. Les cercles marquent les arrêts aux stands.</p></div>
+        <div id="strategy-drivers" class="strategy-drivers" aria-label="Pilotes affichés"></div><div class="bump-wrap"><svg id="bump" viewBox="0 0 1100 540" role="img" aria-label="Évolution des positions tour par tour"></svg></div><p class="chart-note">Un arrêt est marqué au tour Jolpica déclaré. Une ligne s’arrête quand les tours du pilote ne sont plus disponibles.</p>
+      </section>
+    </main>
+    <footer><span>F1 DATA LAB · Atelier agents & données</span><span><a href="https://openf1.org/docs/" target="_blank" rel="noreferrer">OpenF1</a> + <a href="https://github.com/jolpica/jolpica-f1" target="_blank" rel="noreferrer">Jolpica</a> · données locales</span></footer>
+    <script type="module" src="/src/main.js"></script>
+  </body>
+</html>
