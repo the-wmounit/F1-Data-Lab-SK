@@ -3,6 +3,7 @@ import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
 import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
 import { sampleAt } from './math.js';
 import { createTrackGeometry } from './road.js';
+import { createReplayLayout, REPLAY_DIMENSIONS } from './track-layout.js';
 
 export class ReplayScene {
   constructor(host) {
@@ -19,8 +20,8 @@ export class ReplayScene {
     this.controls.enableDamping = true;
     this.controls.dampingFactor = .07;
     this.controls.maxPolarAngle = Math.PI * .48;
-    this.controls.minDistance = 6;
-    this.controls.maxDistance = 380;
+    this.controls.minDistance = 1.2;
+    this.controls.maxDistance = 800;
     this.scene.add(new THREE.HemisphereLight(0xe7efd6, 0x34382e, 2));
     const light = new THREE.DirectionalLight(0xfff5d9, 2.5);light.position.set(20,60,-20);light.castShadow=true;
     light.shadow.mapSize.set(1024,1024);Object.assign(light.shadow.camera,{left:-90,right:90,top:90,bottom:-90,near:1,far:180});light.shadow.bias=-.0005;light.shadow.normalBias=.025;this.scene.add(light);this.light=light;
@@ -54,17 +55,20 @@ export class ReplayScene {
       document.querySelector('#message').textContent='Le contexte 3D a été interrompu. Rechargez la page pour reprendre le replay.';
     });
   }
-  resize() { const w=this.host.clientWidth, h=this.host.clientHeight; this.renderer.setSize(w,h); this.camera.aspect=w/Math.max(h,1); this.camera.updateProjectionMatrix(); }
+  resize() {
+    const w=this.host.clientWidth, h=this.host.clientHeight;
+    // Other workshop views hide the replay. Keep its valid camera until visible.
+    if(w<=0||h<=0)return;
+    const wasHome=this.home&&this.camera.position.distanceTo(this.home)<.01;
+    this.renderer.setSize(w,h); this.camera.aspect=w/h; this.camera.updateProjectionMatrix();
+    if(this.layout){this.frameTrack();if(wasHome&&this.mode==='orbit')this.reset();}
+  }
   load(replay) {
     this.clear(); this.replay = replay;
     const trace = replay.circuit.points;
-    const xs=trace.map(p=>p[0]), ys=trace.map(p=>p[1]), zs=trace.map(p=>p[2]);
-    const range=Math.max(Math.max(...xs)-Math.min(...xs),Math.max(...ys)-Math.min(...ys),1);
-    this.scale=115/range;
-    this.center=[(Math.max(...xs)+Math.min(...xs))/2,(Math.max(...ys)+Math.min(...ys))/2,Math.min(...zs)];
-    const vectors=trace.map(p=>this.map(p));
-    const curve=new THREE.CatmullRomCurve3(vectors,true,'centripetal');
-    const geometry=createTrackGeometry(curve,Math.max(1200,trace.length*3));
+    this.layout=createReplayLayout(trace);
+    const { vectors, curve, extent }=this.layout;
+    const geometry=createTrackGeometry(curve,Math.max(1200,trace.length*3),{width:REPLAY_DIMENSIONS.roadWidth});
     const road=new THREE.Mesh(geometry.road,new THREE.MeshStandardMaterial({map:this.makeAsphalt(),roughness:.98,metalness:0}));
     road.receiveShadow=true;
     const shoulders=new THREE.Mesh(geometry.shoulders,new THREE.MeshStandardMaterial({color:0x8d816b,roughness:1}));
@@ -72,14 +76,15 @@ export class ReplayScene {
     const curbs=new THREE.Mesh(geometry.curbs,new THREE.MeshStandardMaterial({vertexColors:true,roughness:.85}));
     this.group.add(shoulders,road,edgeLines,curbs);
     const floorY=Math.min(...vectors.map(v=>v.y))-1.7;
-    const floor=new THREE.Mesh(new THREE.PlaneGeometry(700,700),new THREE.MeshStandardMaterial({color:0x6c6252,roughness:1}));
+    const floorSize=Math.max(700,Math.max(extent.x,extent.z)*7);
+    const floor=new THREE.Mesh(new THREE.PlaneGeometry(floorSize,floorSize),new THREE.MeshStandardMaterial({color:0x6c6252,roughness:1}));
     floor.rotation.x=-Math.PI/2;floor.position.y=floorY;this.group.add(floor);
     floor.receiveShadow=true;
     // A start/finish strip derived from the first trace point, perpendicular to its tangent.
-    const start=vectors[0], tangent=vectors[1].clone().sub(start).normalize();
-    const flag=new THREE.Mesh(new THREE.PlaneGeometry(4.2,.24),new THREE.MeshBasicMaterial({map:this.makeStartLine()}));
-    flag.quaternion.setFromAxisAngle(new THREE.Vector3(0,1,0),Math.atan2(tangent.x,tangent.z)).multiply(new THREE.Quaternion().setFromAxisAngle(new THREE.Vector3(1,0,0),-Math.PI/2));flag.position.copy(start).add(new THREE.Vector3(0,.025,0));this.group.add(flag);
-    this.home=new THREE.Vector3(95,115,105);this.target=new THREE.Vector3(0,Math.max(...vectors.map(v=>v.y))/2,0);
+    const start=curve.getPoint(0), tangent=curve.getTangent(0);
+    const flag=new THREE.Mesh(new THREE.PlaneGeometry(REPLAY_DIMENSIONS.roadWidth,.06),new THREE.MeshBasicMaterial({map:this.makeStartLine()}));
+    flag.quaternion.setFromAxisAngle(new THREE.Vector3(0,1,0),Math.atan2(tangent.x,tangent.z)).multiply(new THREE.Quaternion().setFromAxisAngle(new THREE.Vector3(1,0,0),-Math.PI/2));flag.position.copy(start).add(new THREE.Vector3(0,.008,0));this.group.add(flag);
+    this.frameTrack();
     for (const driver of replay.drivers) {
       const group=new THREE.Group();
       const sphere=new THREE.Mesh(new THREE.SphereGeometry(.65,16,12),new THREE.MeshBasicMaterial({color:driver.color}));
@@ -89,13 +94,33 @@ export class ReplayScene {
       ring.rotation.x=-Math.PI/2;ring.position.y=.04;group.add(ring);
       const trail=new THREE.Line(new THREE.BufferGeometry(),new THREE.LineBasicMaterial({color:driver.color,transparent:true,opacity:.45}));this.group.add(trail);
       const label=this.makeLabel(driver.code,driver.color);group.add(label);
+      // Details and camera distances follow the car size; measured positions do not.
+      visual.scale.setScalar(REPLAY_DIMENSIONS.cameraScale);
+      ring.scale.setScalar(REPLAY_DIMENSIONS.cameraScale);
+      ring.position.y*=REPLAY_DIMENSIONS.cameraScale;
+      label.position.y*=REPLAY_DIMENSIONS.cameraScale;
+      label.scale.multiplyScalar(REPLAY_DIMENSIONS.cameraScale);
       const car={driver,group,visual,ring,trail,label,position:null,direction:new THREE.Vector3(0,0,1)};
       this.cars.set(driver.driverId,car);
       if(this.modelTemplate)this.installModel(car);
     }
     this.selected=replay.drivers[0]?.driverId;this.reset();this.render(0);
   }
-  map(p) { return new THREE.Vector3((p[0]-this.center[0])*this.scale,(p[2]-this.center[2])*this.scale+.15,-(p[1]-this.center[1])*this.scale); }
+  map(p) { return this.layout.map(p); }
+  frameTrack() {
+    const bounds=new THREE.Box3().setFromPoints(this.layout.vectors).expandByScalar(REPLAY_DIMENSIONS.roadWidth);
+    this.target=bounds.getCenter(new THREE.Vector3());
+    const direction=new THREE.Vector3(.65,1,.7).normalize();
+    const rotation=new THREE.Quaternion().setFromRotationMatrix(new THREE.Matrix4().lookAt(direction,new THREE.Vector3(),new THREE.Vector3(0,1,0))).invert();
+    const tanV=Math.tan(THREE.MathUtils.degToRad(this.camera.fov)/2), tanH=tanV*this.camera.aspect;
+    let distance=1;
+    // Fit the occupied track, not empty corners of a long circuit's bounding box.
+    for(const station of this.layout.curve.points){
+      const point=station.clone().sub(this.target).applyQuaternion(rotation);
+      distance=Math.max(distance,point.z+(Math.abs(point.x)+REPLAY_DIMENSIONS.roadWidth)/tanH,point.z+(Math.abs(point.y)+REPLAY_DIMENSIONS.roadWidth)/tanV);
+    }
+    this.home=this.target.clone().addScaledVector(direction,distance*1.12);
+  }
   makeAsphalt(){
     const canvas=document.createElement('canvas');canvas.width=128;canvas.height=128;
     const ctx=canvas.getContext('2d'),pixels=ctx.createImageData(128,128);let seed=17;
@@ -108,7 +133,7 @@ export class ReplayScene {
     car.group.remove(car.visual);
     car.visual.traverse(mesh=>{mesh.geometry?.dispose();mesh.material?.dispose();});
     const model=this.modelTemplate.clone(true);
-    model.scale.setScalar(.5);
+    model.scale.setScalar(REPLAY_DIMENSIONS.carScale);
     model.traverse(mesh=>{
       if(!mesh.isMesh)return;
       mesh.userData.replayAsset=true;mesh.castShadow=true;
@@ -150,20 +175,25 @@ export class ReplayScene {
       car.ring.visible=id===this.selected&&this.mode==='orbit';
       car.visual.visible=!(id===this.selected&&this.mode==='onboard');
       if(!point){car.position=null;continue;}
-      car.position=this.map(point).add(new THREE.Vector3(0,.045,0));car.group.position.copy(car.position);
+      car.position=this.map(point).add(new THREE.Vector3(0,.045*REPLAY_DIMENSIONS.cameraScale,0));car.group.position.copy(car.position);
+      if(car.label.visible){
+        const labelHeight=this.camera.position.distanceTo(car.position)*Math.tan(THREE.MathUtils.degToRad(this.camera.fov)/2)*2*20/Math.max(this.host.clientHeight,1);
+        car.label.scale.set(labelHeight*160/60,labelHeight,1);car.label.position.y=labelHeight*.7+.13;
+      }
       const ahead=sampleAt(car.driver.points,time+.6), behind=sampleAt(car.driver.points,time-.6);
       const direction=ahead?this.map(ahead).sub(this.map(point)):behind?this.map(point).sub(this.map(behind)):null;
       if(direction&&Math.hypot(direction.x,direction.z)>.01){const horizontal=Math.hypot(direction.x,direction.z);car.direction.set(direction.x,0,direction.z).normalize();car.visual.rotation.set(-Math.atan2(direction.y,horizontal),Math.atan2(direction.x,direction.z),0,'YXZ');}
       const trailPoints=[];
-      for(let j=0;j<6;j++){const p=sampleAt(car.driver.points,time-j*.65);if(!p)break;trailPoints.push(this.map(p).add(new THREE.Vector3(0,.06,0)));}
+      for(let j=0;j<6;j++){const p=sampleAt(car.driver.points,time-j*.65);if(!p)break;trailPoints.push(this.map(p).add(new THREE.Vector3(0,.06*REPLAY_DIMENSIONS.cameraScale,0)));}
       car.trail.geometry.dispose();car.trail.geometry=new THREE.BufferGeometry().setFromPoints(trailPoints);
     }
     if(this.mode==='onboard'||this.mode==='follow'){
       const car=this.cars.get(this.selected);
       if(car?.position){
         const onboard=this.mode==='onboard';
-        this.camera.position.copy(car.position).addScaledVector(car.direction,onboard?.25:-5.5).add(new THREE.Vector3(0,onboard?1.1:3.2,0));
-        this.camera.lookAt(car.position.clone().addScaledVector(car.direction,onboard?8:.2).add(new THREE.Vector3(0,.35,0)));
+        const scale=REPLAY_DIMENSIONS.cameraScale;
+        this.camera.position.copy(car.position).addScaledVector(car.direction,(onboard?.25:-5.5)*scale).add(new THREE.Vector3(0,(onboard?1.1:3.2)*scale,0));
+        this.camera.lookAt(car.position.clone().addScaledVector(car.direction,(onboard?8:.2)*scale).add(new THREE.Vector3(0,.35*scale,0)));
       }
     }else{this.controls.update();}
     this.renderer.render(this.scene,this.camera);

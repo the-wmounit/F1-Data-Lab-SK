@@ -11,12 +11,15 @@ const WHITE = new THREE.Color('#f5f3e8');
 /**
  * A road ribbon follows the measured centerline elevation, with a horizontal
  * cross section at each station (no banking, tube, or invented elevation).
- * Scene-unit widths: road 4.2; shoulders 2.1..2.55; white lines 2..2.045.
+ * Default scene-unit widths: road 4.2; shoulders 2.1..2.55; white lines 2..2.045.
+ * The width option scales all bands together to the replay's lap-based scale.
  * UV u crosses each band; v is longitudinal arc distance / 4 scene units.
  * Returned BufferGeometry objects own their attributes, but no materials.
  * Open curves also work for testing; a closed curve gets an exact seam.
  */
-export function createTrackGeometry(curve, segments = 1200) {
+export function createTrackGeometry(curve, segments = 1200, { width = ROAD_HALF_WIDTH * 2 } = {}) {
+  if (!Number.isFinite(width) || width <= 0) throw new RangeError('Track width must be finite and positive.');
+  const widthScale = width / (ROAD_HALF_WIDTH * 2);
   if (!Number.isInteger(segments) || segments < 4 || segments > 100_000) {
     throw new RangeError('Track segments must be an integer between 4 and 100000.');
   }
@@ -60,14 +63,15 @@ export function createTrackGeometry(curve, segments = 1200) {
   const stations = points.map((point, index) => ({ point, tangent: tangents[index],
     lateral: new THREE.Vector3(-tangents[index].z, 0, tangents[index].x), distance: length * index / segments }));
 
-  const road = stripGeometry(stations, [[-ROAD_HALF_WIDTH, ROAD_HALF_WIDTH]], 0, closed);
-  const shoulders = stripGeometry(stations, [[-2.55, -ROAD_HALF_WIDTH], [ROAD_HALF_WIDTH, 2.55]], -.03, closed);
-  const edgeLines = stripGeometry(stations, [[-2.045, -2], [2, 2.045]], .015, closed);
-  const curbs = curbGeometry(stations, closed);
+  const scaledBands = bands => bands.map(band => band.map(offset => offset * widthScale));
+  const road = stripGeometry(stations, [[-width / 2, width / 2]], 0, closed);
+  const shoulders = stripGeometry(stations, scaledBands([[-2.55, -ROAD_HALF_WIDTH], [ROAD_HALF_WIDTH, 2.55]]), -.03 * widthScale, closed);
+  const edgeLines = stripGeometry(stations, scaledBands([[-2.045, -2], [2, 2.045]]), .015 * widthScale, closed);
+  const curbs = curbGeometry(stations, closed, widthScale);
   for (const geometry of [road, shoulders, edgeLines, curbs]) {
     geometry.userData = { closed, segments, length, uvDistancePerRepeat: 4 };
   }
-  road.userData.width = ROAD_HALF_WIDTH * 2;
+  road.userData.width = width;
   curbs.userData.turnAngleThreshold = CURB_ANGLE;
   curbs.userData.lookDistance = CURB_LOOK_DISTANCE;
   return { road, shoulders, edgeLines, curbs };
@@ -78,13 +82,9 @@ function stationPoint(station, offset, elevation) {
 }
 
 function appendTriangle(indices, positions, a, b, c) {
-  // Tight hairpins may fold an offset edge; keep every top face facing up.
-  const abx = positions[b * 3] - positions[a * 3];
-  const abz = positions[b * 3 + 2] - positions[a * 3 + 2];
-  const acx = positions[c * 3] - positions[a * 3];
-  const acz = positions[c * 3 + 2] - positions[a * 3 + 2];
-  if (abz * acx - abx * acz < 0) indices.push(a, c, b);
-  else indices.push(a, b, c);
+  // Keep the ribbon's natural winding. Flipping a folded face would conceal an
+  // invalid offset instead of repairing the road; fixture tests detect folds.
+  indices.push(a, b, c);
 }
 
 function finishGeometry(positions, uvs, indices, colors = null, seams = []) {
@@ -136,7 +136,7 @@ function stripGeometry(stations, bands, elevation, closed) {
   return finishGeometry(positions, uvs, indices, null, seams);
 }
 
-function curbGeometry(stations, closed) {
+function curbGeometry(stations, closed, widthScale) {
   const positions = [], uvs = [], indices = [], colors = [];
   const segments = stations.length - 1;
   const step = stations[segments].distance / segments;
@@ -149,12 +149,12 @@ function curbGeometry(stations, closed) {
     const after = stationAt(index + window).tangent;
     const angle = Math.acos(THREE.MathUtils.clamp(before.dot(after), -1, 1));
     if (angle < CURB_ANGLE) continue;
-    const color = Math.floor((stations[index].distance + stations[index + 1].distance) / 2 / 1.5) % 2 ? WHITE : RED;
+    const color = Math.floor((stations[index].distance + stations[index + 1].distance) / 2 / (1.5 * widthScale)) % 2 ? WHITE : RED;
     for (const [inner, outer] of [[-2.3, -2.1], [2.1, 2.3]]) {
       const first = positions.length / 3;
       for (const station of [stations[index], stations[index + 1]]) {
         for (const [u, offset] of [[0, inner], [1, outer]]) {
-          const point = stationPoint(station, offset, .025);
+          const point = stationPoint(station, offset * widthScale, .025 * widthScale);
           positions.push(point.x, point.y, point.z);
           uvs.push(u, station.distance / 4);
           colors.push(color.r, color.g, color.b);

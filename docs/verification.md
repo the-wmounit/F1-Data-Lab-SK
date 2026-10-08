@@ -23,3 +23,16 @@ L'interface utilise un même système visuel : surfaces vert noir, accent lime p
 Les deux courses contiennent 855 807 observations brutes, ramenées à 210 460 échantillons. Les positions OpenF1 sont approximatives. Le modèle 2026 et ses teintes illustrent les courses 2024 ; la taille des voitures est un choix d'affichage. La largeur, les accotements et les vibreurs sont illustratifs ; le tracé conserve le tour fourni et son `z` approximatif. Les données, le bundle et le GLB sont locaux. La préparation NuGet doit être faite avant de travailler hors ligne ; le lancement n'appelle aucune API distante.
 
 La fiche CGTrader exacte et la licence du modèle restent à identifier avant sa publication. Voir [sources](sources.md) et [manifeste du modèle](../wwwroot/models/manifest.json).
+
+## Correction du tracé de Djeddah, 8 octobre 2026
+
+Le défaut de la capture à 08:39 a été reproduit sur `/reference/`. L'ancienne normalisation de l'étendue maximale à 115 unités associait une route de 4,2 unités à deux branches de Djeddah séparées d'environ 1,45 unité. Leurs bords se recouvraient. Retourner les indices des triangles gardait les faces visibles, sans réparer les plis. Les contrôles du 1er octobre ne détectaient donc pas ce défaut.
+
+Le rendu normalise maintenant la longueur du tour à 600 unités, dessine une route de 1,2 unité et réduit ensemble les voitures et les distances des caméras. La courbe de chaussée est rééchantillonnée et légèrement filtrée horizontalement, notamment pour un petit recul natif dans la trace de Bahreïn. Les coordonnées des voitures, les fixtures, le GLB et les fichiers 3D originaux restent intacts. Le détail de la transformation figure dans [lineage.md](lineage.md).
+
+- Suite frontend : 14 tests réussis, dont cinq régressions utilisant les deux fixtures complètes. Aucun triangle replié ni croisement des bords de route et des accotements ; aucune coordonnée, normale ou UV non finie.
+- Le témoin de l'ancien rendu de Djeddah produit 64 triangles repliés et 32 croisements de bords ; les nouveaux contrôles le rejettent. La séparation des branches corrigées est d'environ 3,42 unités pour un encombrement total des accotements de 1,46 unité.
+- Écart maximal mesuré entre la courbe d'affichage et la polyligne source : moins de 0,106 unité sur chacune des deux courses. Le `z` des stations n'est pas moyenné.
+- Le bundle Vite servi a été reconstruit. L'avertissement de taille du chunk Three.js persiste ; aucun nouvel appel réseau externe n'a été ajouté.
+- Navigateur : comparaison à 08:39, épingle à 08:31, trois caméras, Bahreïn, lecture/pause, curseur au clavier et sélection de pilote vérifiés. Aller-retour Replay / Championnat : le circuit reste visible après avoir été masqué. Aucune erreur ni aucun avertissement dans la console du contrôle final.
+- Mobile à 390 × 844 : commandes utilisables, pilote sélectionnable, vue de suivi et vue orbitale examinées ; largeur de document de 375 pixels, sans débordement horizontal. Captures locales conservées dans `artifacts/`, ignoré par Git.
